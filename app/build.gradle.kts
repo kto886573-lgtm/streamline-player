@@ -11,6 +11,7 @@ android { namespace = "com.example.streamline"; compileSdk = 35
 }
 
 dependencies {
+    implementation("com.google.android.gms:play-services-auth:22.0.0")
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.activity:activity-compose:1.10.0")
     implementation(platform("androidx.compose:compose-bom:2024.12.01"))
