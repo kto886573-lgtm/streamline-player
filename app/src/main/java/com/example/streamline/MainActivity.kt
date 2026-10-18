@@ -126,7 +126,7 @@ fun StreamlineApp() {
     }
 }
 
-@Composable private fun HomeTab(playlists: List<CloudPlaylist>, tracks: List<Track>, current: Track?, play: (Track) -> Unit, open: (CloudPlaylist) -> Unit, download: (CloudPlaylist) -> Unit, add: () -> Unit) {
+@Composable private fun ColumnScope.HomeTab(playlists: List<CloudPlaylist>, tracks: List<Track>, current: Track?, play: (Track) -> Unit, open: (CloudPlaylist) -> Unit, download: (CloudPlaylist) -> Unit, add: () -> Unit) {
     if (playlists.isNotEmpty()) { Text("Твои плейлисты", color = Color.White, fontSize = 21.sp, fontWeight = FontWeight.SemiBold); Spacer(Modifier.height(8.dp)); LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.weight(1f)) { items(playlists) { p -> PlaylistRow(p, { open(p) }, { download(p) }) } } } else { EmptyState(add, "Подключи Google, чтобы увидеть плейлисты") }
     if (tracks.isNotEmpty()) { Spacer(Modifier.height(12.dp)); Text("Недавние треки", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold); tracks.take(5).forEach { TrackRow(it, it == current) { play(it) } } }
 }
