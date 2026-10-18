@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -83,7 +84,7 @@ fun StreamlineApp() {
     fun play(track: Track) {
         scope.launch {
             status = "Подготавливаю воспроизведение…"
-            val uri = if (track.videoId != null) resolver.resolveAudio(track.videoId) else track.uri
+            val uri = if (track.isDownloaded || track.videoId == null) track.uri else resolver.resolveAudio(track.videoId)
             if (uri.isNullOrBlank()) { status = "Не удалось получить аудиопоток"; return@launch }
             current = track; status = null
             controller?.setMediaItem(MediaItem.Builder().setUri(Uri.parse(uri)).setMediaMetadata(MediaMetadata.Builder().setTitle(track.title).setArtist(track.artist).build()).build())
